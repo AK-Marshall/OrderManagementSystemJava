@@ -11,10 +11,15 @@ public class OrderController {
 	
 	private OrderService orderService = new OrderService();
 	
+	// Orders File Reset
+	public void initializeOrderStorage() {
+        orderService.initializeFile();
+    }
+	// Creating Order
 	public Order createOrder(Profile profile, List<Item> items) {
 		return orderService.createOrder(profile, items);
 	}
-	
+	// Retrieve Order based on Order ID
 	public Order getOrderById(String orderId) {
 		return orderService.getOrder(orderId);
 	}

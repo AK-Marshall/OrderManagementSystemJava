@@ -14,7 +14,8 @@ public class ProfileDAO {
     public List<Profile> getAllProfiles() {
 
         List<Profile> profiles = new ArrayList<>();
-
+        
+        // Parsing 
         try {
             InputStream is = getClass()
                     .getClassLoader()
@@ -28,7 +29,7 @@ public class ProfileDAO {
 
             String line;
             boolean skipHeader = true;
-
+            
             while ((line = br.readLine()) != null) {
 
                 if (skipHeader) {

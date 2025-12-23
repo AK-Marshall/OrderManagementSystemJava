@@ -1,5 +1,6 @@
 package com.training.ordersystem.service;
 
+// Generates Order ID
 public class OrderIdGenerator {
 	
 	public static int counter = 1;

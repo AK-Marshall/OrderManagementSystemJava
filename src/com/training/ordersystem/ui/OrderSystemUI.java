@@ -9,6 +9,7 @@ import com.training.ordersystem.controller.ProfileController;
 import com.training.ordersystem.model.Order;
 import com.training.ordersystem.model.Item;
 import com.training.ordersystem.model.Profile;
+
 public class OrderSystemUI {
 		
 	
@@ -17,7 +18,9 @@ public class OrderSystemUI {
 	    Scanner sc = new Scanner(System.in);
 	    ProfileController profileController = new ProfileController();
 	    OrderController orderController = new OrderController();
-	
+	    orderController.initializeOrderStorage(); // Orders File Reset
+
+	    
 	    while (true) {
 	
 	        System.out.println("\n===== ORDER SYSTEM =====");
@@ -27,23 +30,24 @@ public class OrderSystemUI {
 	        System.out.print("Enter choice: ");
 	
 	        int option = sc.nextInt();
-	        sc.nextLine(); // consume newline
+	        sc.nextLine(); 
 	
-	        // EXIT
 	        if (option == 0) {
 	            System.out.println("Exiting Order System. Goodbye!");
 	            break;
 	        }
 	
-	        // CREATE NEW ORDER
+	        // Create and Store Orders in Orders Text File
 	        if (option == 1) {
-	
+	        	
+	        	// Profile Available 
 	            System.out.println("Available Profiles:");
 	            List<Profile> profiles = profileController.getAllProfiles();
 	            for (Profile profile : profiles) {
 	                System.out.println(profile);
 	            }
-	
+	            
+	            // User Input for choosing the User
 	            System.out.print("Enter User ID: ");
 	            int userId = sc.nextInt();
 	            sc.nextLine();
@@ -52,12 +56,13 @@ public class OrderSystemUI {
 	
 	            if (selectedProfile == null) {
 	                System.out.println("Invalid User ID.");
-	                continue; // go back to menu
+	                continue; 
 	            }
 	
 	            List<Item> items = new ArrayList<>();
 	            String choice;
-	
+	            
+	            // Item Name and Price input loop
 	            do {
 	                System.out.print("Enter Item Name: ");
 	                String itemName = sc.nextLine();
@@ -82,16 +87,15 @@ public class OrderSystemUI {
 	            System.out.println("Items             :");
 	
 	            for (Item item : order.getItems()) {
-	                System.out.printf("- %-15s : ₹%7.2f%n",
+	                System.out.printf("-  : ",
 	                        item.getItemName(),
 	                        item.getItemPrice());
 	            }
 	
-	            System.out.printf("Total Cost        : ₹%7.2f%n",
-	                    order.getTotalCost());
+	            System.out.printf("Total Cost        : ₹",order.getTotalCost());
 	        }
 	
-	        // RETRIEVE ORDER
+	        // Retrieve Order based on Order ID
 	        else if (option == 2) {
 	
 	            System.out.print("Enter Order ID: ");
@@ -105,20 +109,18 @@ public class OrderSystemUI {
 	                System.out.println("Order ID          : " + order.getOrderId());
 	                System.out.println("Customer Name     : " + order.getProfile().getUserName());
 	                System.out.println("Customer Email ID : " + order.getProfile().getUserEmail());
-	                System.out.println("Items             :");
+	                System.out.println("Items");
 	
 	                for (Item item : order.getItems()) {
-	                    System.out.printf("- %-15s : ₹%7.2f%n",
+	                    System.out.printf("- %-15s : ₹%d%n",
 	                            item.getItemName(),
 	                            item.getItemPrice());
 	                }
 	
-	                System.out.printf("Total Cost        : ₹%7.2f%n",
-	                        order.getTotalCost());
+	                System.out.printf("Total Cost        : ₹%d%n", order.getTotalCost());
 	            }
 	        }
 	
-	        // INVALID OPTION
 	        else {
 	            System.out.println("Invalid choice. Try again.");
 	        }

@@ -6,6 +6,7 @@ public class Profile {
 	private String userEmail;
 	private int userId;
 	
+	//Constructor
 	public Profile(int userId, String userName, String userEmail) {
 		this.userId = userId;
 		this.userName = userName;
